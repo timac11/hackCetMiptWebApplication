@@ -1,0 +1,10 @@
+.wizard-wrapper {
+    height: 80vh;
+    padding: 32px;
+}
+
+.wizard-wrapper-buttons {
+    display: flex;
+    padding: 0 32px;
+    justify-content: space-between;
+}
