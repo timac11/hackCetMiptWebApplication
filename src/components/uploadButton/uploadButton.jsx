@@ -6,6 +6,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1),
+        cursor: 'pointer'
     },
     leftIcon: {
         marginRight: theme.spacing(1),

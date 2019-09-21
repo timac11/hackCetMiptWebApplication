@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button/Button";
 import {makeStyles} from "@material-ui/core";
 import SimpleReactFileUpload from "../components/simple-upload/simpleUpload";
 import Chart from "../components/chart/Chart";
+import Header from "../components/header/header";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -95,6 +96,7 @@ export default function Main() {
 
     return (
         <div className={classes.root}>
+            <Header/>
             <div className="wizard-wrapper">
                 {getStepContent(activeStep)}
             </div>
