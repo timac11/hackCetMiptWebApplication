@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = () => {
-    const classes = useStyles();
 
     function logout() {
         localStorage.clear();
@@ -32,7 +31,7 @@ const Header = () => {
     return (
         <div className="header">
             <Box fontSize="h6.fontSize">
-                <div className="prod-name">Hooligans Production</div>
+                <div className="prod-name">Hooliguns Production</div>
             </Box>
             <div className="user-info">
                 <div className="user-name">Maxim Maslov</div>

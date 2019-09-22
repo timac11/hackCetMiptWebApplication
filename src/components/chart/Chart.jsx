@@ -10,6 +10,15 @@ export default class Chart extends Component {
     constructor(props) {
         super(props);
 
+        const data = [];
+        const probability = [0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
+        let arrange = 2466;
+
+        for (const a of Array(100).keys()) {
+            data.push([arrange, probability[Math.floor(Math.random()*probability.length)]])
+            arrange++;
+        }
+
         this.state = {
             // To avoid unnecessary update keep all options in the state.
             chartOptions: {
@@ -73,7 +82,7 @@ export default class Chart extends Component {
                 series: [{
                     type: 'area',
                     name: 'Probability',
-                    data: [[0, 0.5], [1, 0.6], [2, 0.5], [3, 0.6], [4, 0.5], [5, 0.6], [6, 0.7], [7, 0.8]]
+                    data: data
                 }]
             },
             hoverData: null

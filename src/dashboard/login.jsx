@@ -71,8 +71,8 @@ export default function Login() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>*
+                    Hooligans system
+                </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
                         variant="outlined"

@@ -10,6 +10,9 @@ import SimpleReactFileUpload from "../components/simple-upload/simpleUpload";
 import Chart from "../components/chart/Chart";
 import Header from "../components/header/header";
 import {Redirect} from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+import TextField from "@material-ui/core/TextField/TextField";
+import formula from "../resources/img/formula.png"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,6 +39,7 @@ export default function Main() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
     const [currentFile, setCurrentFile] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(false);
     const steps = getSteps();
     const me = this;
 
@@ -52,7 +56,15 @@ export default function Main() {
             case 1:
                 return <Chart/>;
             case 2:
-                return <div>Download results</div>;
+                return <div>
+                    <TextField
+                        required
+                        id="standard-required"
+                        label="Profit"
+                        defaultValue="4000000"
+                        margin="normal"
+                    />
+                </div>;
             default:
                 return 'Unknown step';
         }
@@ -83,6 +95,7 @@ export default function Main() {
 
     function handleNextAction() {
         if (activeStep === 0) {
+            // setIsLoading(true);
             fileUpload();
         }
     }
@@ -125,6 +138,11 @@ export default function Main() {
         authRedirect = <Redirect to="/login"/>;
     }
 
+    let loading = null;
+    if (isLoading) {
+        loading = <CircularProgress disableShrink />
+    }
+
     return (
         <div className={classes.root}>
             <Header/>
@@ -159,6 +177,7 @@ export default function Main() {
                 </div>
             )}
             {authRedirect}
+            {loading}
         </div>
     );
 }
