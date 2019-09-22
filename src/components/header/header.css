@@ -26,7 +26,8 @@
     display: flex;
 }
 
-.header .prod-name, .header .user-name {
+.header .prod-name,
+.header .user-name {
     color: white;
     text-transform: uppercase;
     font-weight: 600;
