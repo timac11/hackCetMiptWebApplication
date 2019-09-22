@@ -119,7 +119,7 @@ export default function Login() {
     );
 
     function verifyAccess(data) {
-        if (data.email === 'maxm16@gmail.com' && data.password === '12345') {
+        if (data.email === 'm0016@hooligans.com' && data.password === '12345') {
             window.location = 'wizard';
             localStorage.setItem("isLogin", "true");
         }
