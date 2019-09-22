@@ -48,8 +48,7 @@ class SimpleReactFileUpload extends React.Component {
                     <div className="upload-file-header">File Upload</div>
                 </Box>
                 <div className="upload-btn-wrapper">
-                    <UploadButton>
-                    </UploadButton>
+                    <UploadButton/>
                     <input type="file" onChange={this.onChange} name="myfile"/>
                     <div className="image-upload-wrap">
                         <input className="file-upload-input" type='file'/>
