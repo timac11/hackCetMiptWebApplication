@@ -2,9 +2,33 @@ import React from 'react';
 import './header.css';
 import Box from "@material-ui/core/Box/Box";
 import User from "../../resources/img/user.jpg"
+import Button from "@material-ui/core/Button/Button";
+import {makeStyles} from "@material-ui/core";
 
-const Header = (props) => {
-    const {actionButtonHidden, searchButtonHidden} = props;
+const useStyles = makeStyles(theme => ({
+    root: {
+        width: '90%',
+    },
+    button: {
+        marginRight: theme.spacing(1),
+    },
+    completed: {
+        display: 'inline-block',
+    },
+    instructions: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+    },
+}));
+
+const Header = () => {
+    const classes = useStyles();
+
+    function logout() {
+        localStorage.clear();
+        window.location = '/login';
+    }
+
     return (
         <div className="header">
             <Box fontSize="h6.fontSize">
@@ -13,31 +37,10 @@ const Header = (props) => {
             <div className="user-info">
                 <div className="user-name">Maxim Maslov</div>
                 <img className="user-photo" src={User}/>
+                <div className="logout-button">
+                    Logout
+                </div>
             </div>
-        </div>
-    );
-};
-
-const backHistory = () => {
-    window.history.back();
-};
-
-const renderUserImage = (props) => {
-    const avatarHidden = props.avatarHidden;
-    return avatarHidden ? null : (
-        <div className="user-img-wrapper">
-        </div>
-    );
-};
-
-//TODO remove hardcoded values
-const renderBaseHeaderContent = (props) => {
-    const content = props.content;
-    return content ? (
-        <div className='base-header-content'>
-        </div>
-    ) : (
-        <div className="user-info-wrapper">
         </div>
     );
 };

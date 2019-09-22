@@ -8,6 +8,7 @@ import {makeStyles} from "@material-ui/core";
 import SimpleReactFileUpload from "../components/simple-upload/simpleUpload";
 import Chart from "../components/chart/Chart";
 import Header from "../components/header/header";
+import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -94,6 +95,12 @@ export default function Main() {
         setCompleted({});
     }
 
+    let authRedirect = null;
+
+    if (localStorage.getItem('isLogin') !== 'true') {
+        authRedirect = <Redirect to="/login"/>;
+    }
+
     return (
         <div className={classes.root}>
             <Header/>
@@ -127,6 +134,7 @@ export default function Main() {
                     </Button>
                 </div>
             )}
+            {authRedirect}
         </div>
     );
 }

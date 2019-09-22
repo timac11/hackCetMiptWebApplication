@@ -5,21 +5,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-function Copyright() {
+function InvalidMessage() {
     return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
+        <Typography variant="body2" color="error" align="center">
+            {'Invalid email or password try again'}
         </Typography>
     );
 }
@@ -51,20 +45,22 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login() {
     const classes = useStyles();
-    const [verifyData, setVerifyData] = React.useState(0);
+    const [verifyData, setVerifyData] = React.useState({});
+    const [isValid, setIsValid] = React.useState(true);
 
     function updateEmail(email) {
         setVerifyData({
             email: email,
             password: verifyData.password
-        })
+        });
+        setIsValid(true);
     }
 
     function updatePassword(password) {
         setVerifyData({
             email: verifyData.email,
             password: password
-        })
+        });
     }
 
     return (
@@ -116,11 +112,19 @@ export default function Login() {
                         Sign In
                     </Button>
                 </form>
+                {!isValid ? <InvalidMessage/> : <div/> }
+
             </div>
         </Container>
     );
-}
 
-function verifyAccess(data) {
-    if (data.email === 'maxm16@gmail.com' && data.password === '12345') window.location = 'wizard'
+    function verifyAccess(data) {
+        if (data.email === 'maxm16@gmail.com' && data.password === '12345') {
+            window.location = 'wizard';
+            localStorage.setItem("isLogin", "true");
+        }
+        else {
+            setIsValid(false);
+        }
+    }
 }
