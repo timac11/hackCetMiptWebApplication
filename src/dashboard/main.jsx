@@ -1,4 +1,5 @@
 import React from 'react'
+import { post } from 'axios';
 import "./main.css"
 import Stepper from "@material-ui/core/Stepper/Stepper";
 import Step from "@material-ui/core/Step/Step";
@@ -30,27 +31,31 @@ function getSteps() {
     return ['Upload File', 'Getting results', 'Download results'];
 }
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <SimpleReactFileUpload/>;
-        case 1:
-            return <Chart></Chart>;
-        case 2:
-            return <div>Download results</div>;
-        default:
-            return 'Unknown step';
-    }
-}
-
 export default function Main() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
+    const [currentFile, setCurrentFile] = React.useState(null);
     const steps = getSteps();
+    const me = this;
 
     function totalSteps() {
         return steps.length;
+    }
+
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <SimpleReactFileUpload
+                    fileChange={setCurrentFile.bind(me)}
+                />;
+            case 1:
+                return <Chart/>;
+            case 2:
+                return <div>Download results</div>;
+            default:
+                return 'Unknown step';
+        }
     }
 
     function completedSteps() {
@@ -73,6 +78,25 @@ export default function Main() {
                 steps.findIndex((step, i) => !(i in completed))
                 : activeStep + 1;
         setActiveStep(newActiveStep);
+        handleNextAction();
+    }
+
+    function handleNextAction() {
+        if (activeStep === 0) {
+            fileUpload();
+        }
+    }
+
+    function fileUpload() {
+        const url = 'http://localhost:8000/file-upload';
+        const formData = new FormData();
+        formData.append('file', currentFile);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        return post(url, formData,config)
     }
 
     function handleBack() {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { post } from 'axios';
 import "./simpleUpload.css"
 import UploadButton from "../uploadButton/uploadButton";
@@ -9,34 +9,38 @@ class SimpleReactFileUpload extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
-            file:null
+            file: null
         };
 
-        this.onFormSubmit = this.onFormSubmit.bind(this)
-        this.onChange = this.onChange.bind(this)
-        this.fileUpload = this.fileUpload.bind(this)
+        this.fileChange = this.props.fileChange;
+        this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.fileUpload = this.fileUpload.bind(this);
     }
 
+    fileChange() {}
+
     onFormSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
         this.fileUpload(this.state.file).then((response)=>{
             console.log(response.data);
         })
     }
 
     onChange(e) {
-        this.setState({file:e.target.files[0]})
+        this.setState({file:e.target.files[0]});
+        this.fileChange(e.target.files[0]);
     }
 
     fileUpload(file){
-        const url = 'http://example.com/file-upload';
+        const url = 'http://localhost:8000/file-upload';
         const formData = new FormData();
-        formData.append('file',file)
+        formData.append('file',file);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        }
+        };
         return  post(url, formData,config)
     }
 
@@ -51,7 +55,7 @@ class SimpleReactFileUpload extends React.Component {
                     <UploadButton/>
                     <input type="file" onChange={this.onChange} name="myfile"/>
                     <div className="image-upload-wrap">
-                        <input className="file-upload-input" type='file'/>
+                        <input className="file-upload-input" type='file' onChange={this.onChange}/>
                         <div className="drag-text">
                             Drag and drop a file or select add Image
                         </div>
