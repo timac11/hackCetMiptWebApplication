@@ -37,7 +37,9 @@ const Header = () => {
             <div className="user-info">
                 <div className="user-name">Maxim Maslov</div>
                 <img className="user-photo" src={User}/>
-                <div className="logout-button">
+                <div className="logout-button"
+                    onClick={() => logout()}
+                >
                     Logout
                 </div>
             </div>

@@ -24,6 +24,7 @@
     margin-left: 16px;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .user-info .user-photo {
