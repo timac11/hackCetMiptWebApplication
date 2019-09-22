@@ -88,7 +88,7 @@ export default function Main() {
     }
 
     function fileUpload() {
-        const url = 'http://localhost:8000/file-upload';
+        const url = 'http://localhost:5000/api/upload';
         const formData = new FormData();
         formData.append('file', currentFile);
         const config = {
