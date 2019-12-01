@@ -3,6 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const sourceRoot = path.resolve(__dirname, 'src');
 const CSSSpritePlugin = require('css-sprite-loader').Plugin;
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 module.exports = {
     entry: sourceRoot + '/index.js',         //entryPoint to app to begin bilding
@@ -22,6 +23,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'css-sprite-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: ['sass-loader']
             },
             /*{
                 test: /\.css$/,
@@ -51,14 +56,30 @@ module.exports = {
                     loader: 'worker-loader'
                 }
             },
+            {
+                test: /-import-icon.svg$/,
+                use: [
+                    'babel-loader',
+                    {
+                        loader: 'react-svg-loader',
+                        options: {
+                            svgo: {
+                                plugins: [{ removeTitle: false }],
+                                floatPrecision: 2
+                            }
+                        }
+                    }
+                ]
+            }
         ],
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx']
+        extensions: ['*', '.js', '.jsx', '.svg', '.ico', '.png']
     },
     devServer: {
         historyApiFallback: true,
         contentBase: path.join(__dirname, 'dist'),
+        host: '0.0.0.0'
     },
     plugins: [
         new CSSSpritePlugin({
@@ -70,6 +91,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html'
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
         })
     ]
 };

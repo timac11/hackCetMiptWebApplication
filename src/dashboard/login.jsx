@@ -71,7 +71,7 @@ export default function Login() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Hooligans system
+                    Startblock
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -80,7 +80,7 @@ export default function Login() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label="Почта"
                         name="email"
                         autoComplete="email"
                         onChange={(event) => updateEmail(event.target.value)}
@@ -92,15 +92,11 @@ export default function Login() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="Пароль"
                         type="password"
                         id="password"
                         onChange={(event) => updatePassword(event.target.value)}
                         autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
                     />
                     <Button
                         fullWidth
@@ -109,7 +105,7 @@ export default function Login() {
                         className={classes.submit}
                         onClick={() => {verifyAccess(verifyData)}}
                     >
-                        Sign In
+                        Войти
                     </Button>
                 </form>
                 {!isValid ? <InvalidMessage/> : <div/> }

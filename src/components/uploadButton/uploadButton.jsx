@@ -23,7 +23,7 @@ export default function UploadButton () {
 
     return (
         <Button variant="contained" color="default" className={classes.button}>
-            Upload
+            Загрузить
             <CloudUploadIcon className={classes.rightIcon} />
         </Button>
     )

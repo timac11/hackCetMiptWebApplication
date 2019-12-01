@@ -3,6 +3,7 @@ import { post } from 'axios';
 import "./simpleUpload.css"
 import UploadButton from "../uploadButton/uploadButton";
 import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography/Typography";
 
 class SimpleReactFileUpload extends React.Component {
 
@@ -48,9 +49,9 @@ class SimpleReactFileUpload extends React.Component {
 
         return (
             <form onSubmit={this.onFormSubmit}>
-                <Box fontSize="h4.fontSize">
-                    <div className="upload-file-header">File Upload</div>
-                </Box>
+                <Typography variant="h6" gutterBottom>
+                    Загрузка файла
+                </Typography>
                 <div className="upload-btn-wrapper">
                     <UploadButton/>
                     <input type="file" onChange={this.onChange} name="myfile"/>
@@ -69,7 +70,7 @@ class SimpleReactFileUpload extends React.Component {
                         <div className="image-upload-wrap">
                             <input className="file-upload-input" type='file' onChange={this.onChange}/>
                             <div className="drag-text">
-                                Drag and drop a file or select add Image
+                                Выберите файл
                             </div>
                             <svg className="MuiSvgIcon-root upload-svg-icon makeStyles-rightIcon-9" focusable="false" viewBox="0 0 24 24"
                                  aria-hidden="true" role="presentation">

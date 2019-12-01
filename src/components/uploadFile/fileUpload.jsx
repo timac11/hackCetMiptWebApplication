@@ -1,17 +1,15 @@
 import React from 'react'
-import { post } from 'axios';
-import "./main.css"
-import Stepper from "@material-ui/core/Stepper/Stepper";
+import {post} from 'axios';
+import "../../dashboard/main.css"
 import Step from "@material-ui/core/Step/Step";
 import StepButton from "@material-ui/core/StepButton/StepButton";
 import Button from "@material-ui/core/Button/Button";
 import {makeStyles} from "@material-ui/core";
-import SimpleReactFileUpload from "../components/simple-upload/simpleUpload";
-import Chart from "../components/chart/Chart";
-import Header from "../components/header/header";
-import {Redirect} from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
-import TextField from "@material-ui/core/TextField/TextField";
+import UploadFileParams from "./uploadFileParams";
+import Params from "./params";
+import ProductGridList from "../carousel/carousel";
+import Stepper from "@material-ui/core/Stepper/Stepper";
+import SimpleReactFileUpload from "../simple-upload/simpleUpload";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,10 +28,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-    return ['Upload File', 'Getting results', 'Download results'];
+    return ['Тип проекта', 'Загрузка файла', 'Основные параметры', 'Завершение процесса'];
 }
 
-export default function Main() {
+export default function FileUpload() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
@@ -49,21 +47,15 @@ export default function Main() {
     function getStepContent(step) {
         switch (step) {
             case 0:
+                return <ProductGridList/>;
+            case 1:
                 return <SimpleReactFileUpload
                     fileChange={setCurrentFile.bind(me)}
                 />;
-            case 1:
-                return <Chart/>;
             case 2:
-                return <div>
-                    <TextField
-                        required
-                        id="standard-required"
-                        label="Profit"
-                        defaultValue="4000000"
-                        margin="normal"
-                    />
-                </div>;
+                return <UploadFileParams/>;
+            case 3:
+                return <Params/>;
             default:
                 return 'Unknown step';
         }
@@ -108,7 +100,7 @@ export default function Main() {
                 'content-type': 'multipart/form-data'
             }
         };
-        return post(url, formData,config)
+        return post(url, formData, config)
     }
 
     function handleBack() {
@@ -133,18 +125,17 @@ export default function Main() {
 
     let authRedirect = null;
 
-    if (localStorage.getItem('isLogin') !== 'true') {
-        authRedirect = <Redirect to="/login"/>;
-    }
+    //if (localStorage.getItem('isLogin') !== 'true') {
+    //    authRedirect = <Redirect to="/login"/>;
+    //}
 
     let loading = null;
     if (isLoading) {
-        loading = <CircularProgress disableShrink />
+        loading = <CircularProgress disableShrink/>
     }
 
     return (
         <div className={classes.root}>
-            <Header/>
             <div className="wizard-wrapper">
                 {getStepContent(activeStep)}
             </div>
@@ -158,12 +149,12 @@ export default function Main() {
                 ))}
             </Stepper>
             {allStepsCompleted() ? (
-                <Button onClick={handleReset}>Reset</Button>
+                <Button onClick={handleReset}>Отменить</Button>
             ) : (
                 <div className="wizard-wrapper-buttons">
                     <Button variant="contained" color="default" disabled={activeStep === 0} onClick={handleBack}
                             className={classes.button}>
-                        Back
+                        Назад
                     </Button>
                     <Button
                         variant="contained"
@@ -171,7 +162,7 @@ export default function Main() {
                         onClick={handleNext}
                         className={classes.button}
                     >
-                        Next
+                        Далее
                     </Button>
                 </div>
             )}

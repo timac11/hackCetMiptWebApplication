@@ -3,8 +3,7 @@ import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts'
 import HC_exporting from 'highcharts/modules/exporting'
 import './chart.css'
-
-HC_exporting(Highcharts);
+import ChartProvider from "./ChartProvider";
 
 export default class Chart extends Component {
     constructor(props) {
@@ -78,7 +77,6 @@ export default class Chart extends Component {
                         threshold: null
                     }
                 },
-
                 series: [{
                     type: 'area',
                     name: 'Probability',
@@ -88,25 +86,21 @@ export default class Chart extends Component {
             hoverData: null
         };
 
-        this.exportChart = () => {
+        /*this.exportChart = () => {
             this.chart.exportChart();
-        };
+        };*/
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         this.chart = this.refs.chart.chart;
-    }
+    }*/
 
     render() {
         const { chartOptions } = this.state;
 
         return (
             <div>
-                <HighchartsReact
-                    highcharts={Highcharts}
-                    options={chartOptions}
-                    ref={"chart"}
-                />
+                <ChartProvider chart={chartOptions}/>
             </div>
         )
     }
