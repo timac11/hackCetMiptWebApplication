@@ -3,7 +3,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const sourceRoot = path.resolve(__dirname, 'src');
 const CSSSpritePlugin = require('css-sprite-loader').Plugin;
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 module.exports = {
     entry: sourceRoot + '/index.js',         //entryPoint to app to begin bilding
@@ -23,10 +22,6 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'css-sprite-loader']
-            },
-            {
-                test: /\.scss$/,
-                use: ['sass-loader']
             },
             /*{
                 test: /\.css$/,
@@ -91,9 +86,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html'
-        }),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static'
         })
     ]
 };
